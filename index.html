@@ -1,3 +1,60 @@
-<h1>
-Hello
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* Style the grid container */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  background-color: #0000FF;
+  color: white;
+}
+
+/* Style the grid boxes */
+.grid-box {
+  border: 1px solid white;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+    </style>
+  <meta charset="UTF-8">
+  <title>Noah Grocery's GitHub Repositories</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1> Noah Grocery's Github Repos</h1>
+  <div class="grid-container" id="grid-container"></div>
+
+ 
+</body>
+</html>
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+  const gridContainer = document.getElementById('grid-container');
+  const username = 'noah-grocery'; // Replace 'your-username' with your GitHub username
+
+  fetch(`https://api.github.com/users/noah-grocery/repos`)
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(repo => {
+        const gridBox = document.createElement('div');
+        gridBox.classList.add('grid-box');
+        gridBox.textContent = repo.name;
+
+        gridBox.addEventListener('click', function () {
+          const repoName = repo.name;
+          window.open(`https://noah-grocery.github.io/${repoName}`, '_blank');
+        });
+
+        gridContainer.appendChild(gridBox);
+      });
+    })
+    .catch(error => console.error('Error fetching repositories:', error));
+});
+
+
+</script>
